@@ -1,0 +1,122 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zayden Studio</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0b0b0f;
+      color: white;
+    }
+    header {
+      padding: 22px;
+      text-align: center;
+      border-bottom: 1px solid #29232e;
+    }
+    header h1 { color: #d7a5ff; margin: 0; }
+    header p { color: #aaa; }
+    main {
+      max-width: 650px;
+      margin: 35px auto;
+      padding: 20px;
+    }
+    .panel {
+      background: #17151d;
+      border: 1px solid #39303f;
+      border-radius: 18px;
+      padding: 22px;
+      margin-bottom: 20px;
+    }
+    label { display: block; margin: 16px 0 8px; }
+    input, select, textarea {
+      width: 100%;
+      padding: 12px;
+      border-radius: 9px;
+      border: 1px solid #48404e;
+      background: #0d0c11;
+      color: white;
+    }
+    textarea { min-height: 100px; resize: vertical; }
+    button {
+      width: 100%;
+      padding: 14px;
+      margin-top: 18px;
+      background: #b66aff;
+      border: 0;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    #status { color: #d7a5ff; line-height: 1.6; }
+    footer { text-align: center; color: #888; padding: 25px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🖤 Zayden Studio</h1>
+    <p>Your AI video creation playground</p>
+  </header>
+
+  <main>
+    <section class="panel">
+      <h2>Create your video concept</h2>
+      <p>Describe your character, choose a style, and prepare your video prompt.</p>
+
+      <label for="character">Character name</label>
+      <input id="character" value="Zayden" placeholder="Enter character name">
+
+      <label for="style">Visual style</label>
+      <select id="style">
+        <option>Realistic human</option>
+        <option>Anime</option>
+        <option>Cinematic</option>
+        <option>3D animation</option>
+      </select>
+
+      <label for="idea">Video idea</label>
+      <textarea id="idea" placeholder="Example: Zayden rides his black motorcycle through a rainy city at night."></textarea>
+
+      <button onclick="makePrompt()">Prepare video prompt</button>
+      <div class="panel" style="margin-top:20px">
+        <h3>Your prompt</h3>
+        <p id="status">Your generated prompt will appear here.</p>
+        <button onclick="copyPrompt()">Copy prompt</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>Zayden Studio · Version 1.0</footer>
+
+  <script>
+    function makePrompt() {
+      const name = document.getElementById('character').value.trim();
+      const style = document.getElementById('style').value;
+      const idea = document.getElementById('idea').value.trim();
+
+      if (!name || !idea) {
+        document.getElementById('status').textContent =
+          'Please enter a character name and video idea first.';
+        return;
+      }
+
+      document.getElementById('status').textContent =
+        'Create a ' + style + ' video featuring ' + name +
+        '. Scene: ' + idea +
+        '. Use cinematic lighting, smooth motion, detailed visuals, and consistent character design.';
+    }
+
+    function copyPrompt() {
+      const text = document.getElementById('status').textContent;
+      if (text === 'Your generated prompt will appear here.') return;
+      navigator.clipboard.writeText(text)
+        .then(() => alert('Prompt copied!'))
+        .catch(() => alert('Please select and copy the prompt manually.'));
+    }
+  </script>
+</body>
+</html>
